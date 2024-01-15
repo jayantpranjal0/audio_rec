@@ -141,6 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
       Uri uri = Uri.file(filePath);
       Source sourceUrl = UrlSource(uri.toString());
       await audioPlayer.play(sourceUrl);
+      print('Playing $filePath');
     } catch (e) {
       print('Play Recording Error $e');
     }
@@ -170,6 +171,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   : const Text('Start Recording'),
             ),
             const SizedBox(height: 20),
+            if (!isRecording && audioPath.isNotEmpty)
+              ElevatedButton(
+                onPressed: () => playRecording(audioPath),
+                child: const Text('Play Recording'),
+              ),
             const SizedBox(height: 20),
             FutureBuilder<List<String>>(
               future: loadSavedRecordings(),
